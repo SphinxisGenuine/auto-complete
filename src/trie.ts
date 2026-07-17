@@ -43,5 +43,30 @@ export class Trie {
     }
 
     return true;
-}
+}   
+    private dfs(node:Trienode,suggestion:string[],currentword:string){
+        if(suggestion.length===5){
+            return suggestion
+        }
+        for (const [childLetter,childNode] of Object.entries(node.children)){
+            if (childNode.isEndOfWord){
+                suggestion.push(currentword+childLetter)
+            }
+            this.dfs(childNode,suggestion,currentword+childLetter)
+        }
+        
+    }
+    childrens(word:string){
+        let current=this.root
+        let arrayofSuggestion:string []=[];
+        for (const char of word){
+            if (!current.children[char]){
+                return []
+            }
+            current=current.children[char];
+        }
+        let temp = current;
+         this.dfs(temp,arrayofSuggestion,word);
+         return arrayofSuggestion!
+    }
 }
