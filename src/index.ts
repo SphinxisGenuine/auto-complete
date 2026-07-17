@@ -1,16 +1,6 @@
-import { Trie } from "./trie.js";
+import { AutocCompleteservice } from "./Autocompleteengine.service.js";
 
-export const instance = new Trie();
 
-instance.insert("cat");
-instance.insert("cats");
-instance.insert("car");
-instance.insert("care");
-instance.insert("camera");
-instance.insert("can");
-instance.insert("camp");
-instance.insert("cup");
-instance.insert("cut");
-instance.insert("dog");
+export const instance = new AutocCompleteservice()
 
-console.log(instance.childrens("ca"))
+console.log()
