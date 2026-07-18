@@ -1,17 +1,25 @@
+type Suggestion={
+word :string;
+freqency:number;
+}
+
 class Trienode{
     children :Record<string,Trienode>={};
     isEndOfWord:boolean=false;
+    freqency:number;
     constructor() {
         this.children = {};
         this.isEndOfWord = false;
+        this.freqency= -1;
     }
+    
 }
 export class Trie {
     private root:Trienode;
     constructor(){
         this.root=new Trienode;
     }
-    insert (word:string):void{
+    insert (word:string,freqency:number):void{
         let node =this.root;
         for (const char of word){
             if (!node.children[char]){
@@ -20,6 +28,7 @@ export class Trie {
         node=node.children[char];
         } 
         node.isEndOfWord=true;
+        node.freqency=freqency
     }
     search(word:string){
         let node = this.root;
@@ -44,24 +53,18 @@ export class Trie {
 
     return true;
 }   
-    private dfs(node:Trienode,suggestion:string[],currentword:string){
-        if(suggestion.length==5){
-            return 
-        }
-        for (const [childLetter,childNode] of Object.entries(node.children)){
-            if(suggestion.length==5){
-            return 
-        }
-            if (childNode.isEndOfWord){
-                suggestion.push(currentword+childLetter)
+    private dfs(node:Trienode,suggestion:Suggestion[],currentword:string){
+            if (node.isEndOfWord){
+                suggestion.push({word:currentword,freqency:node.freqency})
             }
+        for (const [childLetter,childNode] of Object.entries(node.children)){
             this.dfs(childNode,suggestion,currentword+childLetter)
         }
         
     }
-    childrens(word:string){
+    getSuggestion(word:string){
         let current=this.root
-        let arrayofSuggestion:string []=[];
+        let arrayofSuggestion:Suggestion []=[];
         for (const char of word){
             if (!current.children[char]){
                 return []
