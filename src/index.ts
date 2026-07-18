@@ -1,6 +1,22 @@
 import { AutocCompleteservice } from "./Autocompleteengine.service.js";
+import { readFileSync } from "fs";
+import express from "express"
+export const instance = new AutocCompleteservice();
+const app = express()
+const file = readFileSync("\src\\google-10000-english.txt","utf-8");
+const list =file.split("\n") .map(word => word.trim())
+.filter(word => word.length > 0);
+  console.log(list)
+instance.loadDictionary(list);
 
 
-export const instance = new AutocCompleteservice()
+app.get('/autocomplete',(req,res)=>{
+    const querq= req.query.q
+const suggestion = instance.autocomplete(String(querq));
+res.json({result:suggestion})
+})
 
-console.log()
+
+  app.listen(3000,()=>{
+    console.log("app is started runnig");
+  })

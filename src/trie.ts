@@ -45,10 +45,13 @@ export class Trie {
     return true;
 }   
     private dfs(node:Trienode,suggestion:string[],currentword:string){
-        if(suggestion.length===5){
-            return suggestion
+        if(suggestion.length==5){
+            return 
         }
         for (const [childLetter,childNode] of Object.entries(node.children)){
+            if(suggestion.length==5){
+            return 
+        }
             if (childNode.isEndOfWord){
                 suggestion.push(currentword+childLetter)
             }
