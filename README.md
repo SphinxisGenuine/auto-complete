@@ -31,5 +31,17 @@ Autocomplete remains a fast read.
 Selections become asynchronous jobs processed by a worker
 The worker updates the frequency and then walks back through the Trie updating the Top-K cache.
 
+next things to do 
+- persistance 
+{Batch frequency updates before writing to the database}
+- worker asychronous 
+- load balncing 
+- rate limiting the api
 
-
+-Observibality (Learn and add ) 
+Metrics{
+Requests/sec
+Queue length
+Worker throughput
+Average autocomplete latency
+}
