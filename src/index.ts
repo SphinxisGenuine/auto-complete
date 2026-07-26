@@ -1,16 +1,18 @@
 import { AutocCompleteservice } from "./Autocompleteengine.service.js";
 import { readFileSync } from "fs";
 import express from "express"
-import dotenv from "dotenv";dotenv.config()
+import dotenv from "dotenv";import { pool } from "./db/db.js";
+dotenv.config()
 export const instance = new AutocCompleteservice();
 const app = express()
-const file = readFileSync("\src\\wiki-100k.txt","utf-8");
-// const file = readFileSync("\src\\google-10000-english.txt","utf-8");
-const list =file.split("\n") .map(word => word.trim())
-.filter(word => word.length > 0);
-  console.log(list)
-instance.loadDictionary(list);
-
+console.log(process.env.DATABASE_URL)
+const result = await pool.query(`
+SELECT word,frequency
+FROM search_term
+ORDER BY frequency DESC;
+`);
+instance.loadDictionary(result.rows);
+console.log(`Loaded ${result.rowCount} words.`);
 
 app.get('/autocomplete',(req,res)=>{
     const querq= req.query.q

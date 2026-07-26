@@ -2,7 +2,7 @@ type Suggestion={
 word :string;
 freqency:number;
 }
-type Wordinfo ={
+export type Wordinfo ={
     word:string;
     freqency:number
 }
