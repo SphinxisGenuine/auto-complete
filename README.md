@@ -30,6 +30,8 @@ The current implementation keeps autocomplete reads extremely fast. My next iter
 Autocomplete remains a fast read.
 Selections become asynchronous jobs processed by a worker
 The worker updates the frequency and then walks back through the Trie updating the Top-K cache.
+ 
+Persistance Next thing to tackle was this becasu every time loading from a dictionory file wasnt a problem a problem was the freqency will be staic it should according to the rela traffic ii moree user type application it should go up so i added freqency but the freqency should be sustain the serveer restart so what i thogt i was my trie  will be still in the memoery the words will loaded from the storage for which i coverted the txt to csv so that i can insert in one go which is fast and proper way to do this so next obv thigs to handle db wrute whih should be asychronous that should mainatian latency and keep it low the ultimalte goal is to  <10ms as much as possible  
 
 next things to do 
 - persistance 
