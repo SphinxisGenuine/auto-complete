@@ -1,6 +1,7 @@
 import { AutocCompleteservice } from "./Autocompleteengine.service.js";
 import { readFileSync } from "fs";
 import express from "express"
+import dotenv from "dotenv";dotenv.config()
 export const instance = new AutocCompleteservice();
 const app = express()
 const file = readFileSync("\src\\wiki-100k.txt","utf-8");
