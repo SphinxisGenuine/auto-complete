@@ -31,10 +31,23 @@ Autocomplete remains a fast read.
 Selections become asynchronous jobs processed by a worker
 The worker updates the frequency and then walks back through the Trie updating the Top-K cache.
  
-Persistance Next thing to tackle was this becasu every time loading from a dictionory file wasnt a problem a problem was the freqency will be staic it should according to the rela traffic ii moree user type application it should go up so i added freqency but the freqency should be sustain the serveer restart so what i thogt i was my trie  will be still in the memoery the words will loaded from the storage for which i coverted the txt to csv so that i can insert in one go which is fast and proper way to do this so next obv thigs to handle db wrute whih should be asychronous that should mainatian latency and keep it low the ultimalte goal is to  <10ms as much as possible  
+Persistance Next thing to tackle was this becasue every time loading from a dictionory file wasnt a problem a problem was the freqency will be staic it should according to the real traffic if moree user slect "application" it should go up so i added freqency but the freqency should be sustain the serveer restart so what i thogt i was my trie  will be still in the memoery the words will loaded from the storage for which i coverted the txt to csv so that i can insert in one go which is fast and proper way to do this so next obv thigs to handle db write whih should be asychronous that should mainatian latency and keep it low the ultimalte goal is to  <10ms as much as possible  
 
-next things to do 
-- persistance 
+I almost Completed the Asynchronous write this was mostly Understaning how the Rabbitmq i somewhat know how an qeue because off one project which i started so it was so=mooth sailing then actually too code from docs and pasted it and understood how it was working then started modifhing it seeing how and what breaks then finally i connected all the peices together 
+- The words .txt file coverts to the .csv
+- .csv loads in db
+- Trie at every start loads from the db and build 
+- at the interface which is wrapper of trie i handled selection recordings
+- then finally iwrote the consumer /worker which takes the word updates it ccount in the db and also the inmemory trie which id i think about it came out so beautifully like WOAH
+
+//todo
+api for handling the selction and forwarding it  to the queue
+seeing wheter i an batch updates 
+seeing if i can add cache here  somewhere if need as per my current knowledge or understanding i dont need one becasue whole trie is in my inmeemory so i dont think its needed
+
+
+
+next things to do  
 {Batch frequency updates before writing to the database}
 - worker asychronous 
 - load balncing 
