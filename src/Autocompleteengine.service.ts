@@ -11,6 +11,11 @@ export class AutocCompleteservice{
         let suggestion=this.trie.getSuggestion(word)
         return suggestion
     }
+    recordselection(word:string):boolean{
+
+        const result =this.trie.RecordSelection(word)
+        return result   
+    }
 
 
 }
