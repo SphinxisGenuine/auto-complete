@@ -24,6 +24,11 @@ async function main() {
         const word=JSON.parse(msg.content).word
         console.log(" [x] Received %s", word);
         console.log(" [x] Received %s",word);
+   
+        async function increament(){
+            const updatefreq=await  incrementWordFrequency(word);
+            instance.recordselection(word);
+        }
 
      
     }, {
