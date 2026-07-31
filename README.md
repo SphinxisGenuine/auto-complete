@@ -39,17 +39,19 @@ I almost Completed the Asynchronous write this was mostly Understaning how the R
 - Trie at every start loads from the db and build 
 - at the interface which is wrapper of trie i handled selection recordings
 - then finally iwrote the consumer /worker which takes the word updates it ccount in the db and also the inmemory trie which id i think about it came out so beautifully like WOAH
+- completed the selction endpoints which now responsible for taking a selcted word and checking whter it exist if it does it pushes this word to the queeue  the consumer increases the frequency in my db as well as my inmemory trie so that consistency of the data maintains 
 
 //todo
-api for handling the selction and forwarding it  to the queue
+api for handling the selction and forwarding it  to the queue (done)
+Reading about How othere people have solved this and where i can make improvements
 seeing wheter i an batch updates 
 seeing if i can add cache here  somewhere if need as per my current knowledge or understanding i dont need one becasue whole trie is in my inmeemory so i dont think its needed
 
 
 
+
 next things to do  
 {Batch frequency updates before writing to the database}
-- worker asychronous 
 - load balncing 
 - rate limiting the api
 
