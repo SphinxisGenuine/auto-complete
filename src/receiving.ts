@@ -29,6 +29,7 @@ async function main() {
             const updatefreq=await  incrementWordFrequency(word);
             instance.recordselection(word);
         }
+        increament();
 
      
     }, {
