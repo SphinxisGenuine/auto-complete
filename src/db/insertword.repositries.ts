@@ -16,3 +16,19 @@ export async function incrementWordFrequency(word: string) {
 
     return result.rows[0];
 }
+
+export async function WordExist(word:string){
+const sql = `
+    SELECT word FROM search_term
+    WHERE word = $1    
+    `;
+
+    const result = await pool.query(sql, [word]);
+
+    if (result.rowCount === 0) {
+        return 0 // Word doesn't exist
+    }
+    else {
+        return 1
+    }
+}
