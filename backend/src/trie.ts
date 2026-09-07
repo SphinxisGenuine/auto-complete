@@ -38,7 +38,7 @@ export class Trie {
     insert (word:string,freqency:number):void{
         let node =this.root;
         const wordInfo = {
-             word,
+             word:word.toLowerCase(),
               freqency
             };
         for (const char of word){
@@ -52,6 +52,7 @@ export class Trie {
         node.freqency=freqency
     }
     search(word:string){
+        word = word.toLowerCase(); 
         let node = this.root;
         for (const char of word){
             if (!node.children[char]){
@@ -63,6 +64,7 @@ export class Trie {
     }
     startsWith(prefix: string): boolean {
     let current = this.root;
+    prefix = prefix.toLowerCase();
     for (const char of prefix) {
         if (!current.children[char]) {
             return false;
@@ -75,6 +77,7 @@ export class Trie {
 }   
     getSuggestion(word:string){
         let current=this.root
+        word = word.toLowerCase(); 
         for (const char of word){
             if (!current.children[char]){
                 return []
@@ -120,6 +123,7 @@ export class Trie {
        
     }
     RecordSelection(word:string):boolean{
+         word = word.toLowerCase();
          let current=this.root
          let cuurent2=current
          let newfreqency
