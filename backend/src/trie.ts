@@ -36,9 +36,10 @@ export class Trie {
         }
     }
     insert (word:string,freqency:number):void{
+        word = word.toLowerCase();
         let node =this.root;
         const wordInfo = {
-             word:word.toLowerCase(),
+             word,
               freqency
             };
         for (const char of word){
@@ -118,7 +119,6 @@ export class Trie {
         if (wordobj.freqency > last.freqency) {
             node.TopK[node.TopK.length - 1] =wordobj;
         node.TopK.sort((a, b) => b.freqency - a.freqency);
-        console.log(node.TopK)
         }
        
     }

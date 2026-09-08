@@ -5,8 +5,14 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx tsc -b && node ./dist/index.js"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc -b",
+    "dev": "npx tsc -b && node ./dist/index.js",
+    "test:load": "npm run build && k6 run dist/load-tests/autocomplete-vu-test.js",
+    "test:selection": "npm run build && k6 run dist/load-tests/selection-vu-test.js",
+    "test:capacity": "npm run build && k6 run dist/load-tests/mixed-capacity-test.js",
+    "test:stress": "npm run build && k6 run dist/load-tests/stress-capacity-test.js"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +26,14 @@
     "typescript": "^7.0.2"
   },
   "devDependencies": {
+    "@rolldown/binding-win32-x64-msvc": "^1.2.7",
     "@types/express": "^5.0.6",
+    "@types/k6": "^2.2.0",
     "@types/node": "^26.1.1",
     "@types/pg": "^8.20.0",
-    "@types/pg-copy-streams": "^1.2.5"
+    "@types/pg-copy-streams": "^1.2.5",
+    "@types/supertest": "^7.2.1",
+    "supertest": "^7.2.2",
+    "vitest": "^5.0.0"
   }
 }

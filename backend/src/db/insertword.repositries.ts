@@ -1,5 +1,4 @@
 import { pool } from "./db.js";
-import { instance } from "../index.js";
 export async function incrementWordFrequency(word: string) {
   const sql = `
         UPDATE search_term
