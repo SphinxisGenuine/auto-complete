@@ -1,20 +1,23 @@
 import { Trie, type Wordinfo } from "./trie.js";
-export class AutocCompleteservice{
+export class AutocCompleteservice {
     private trie = new Trie()
     loadDictionary(words: Wordinfo[]) {
         for (const word of words) {
-            this.trie.insert(word.word,word.freqency);
+            this.trie.insert(word.word, word.freqency);
         }
     }
-    autocomplete(word:string,limit:number=5){
+    autocomplete(word: string, limit: number = 5) {
         //negative keep it positvie swap it 
-        let suggestion=this.trie.getSuggestion(word)
+        let suggestion = this.trie.getSuggestion(word)
         return suggestion
     }
-    recordselection(word:string):boolean{
+    recordselection(word: string): boolean {
 
-        const result =this.trie.RecordSelection(word)
-        return result   
+        const result = this.trie.RecordSelection(word)
+        return result
+    }
+    iswordexist(word: string): boolean {
+        return this.trie.search(word);
     }
 
 

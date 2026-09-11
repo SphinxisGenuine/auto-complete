@@ -1,8 +1,7 @@
 import amqp from "amqplib";
 import type { word } from "./rabbit.js";
 import { pool } from "./db/db.js";
-import { incrementWordFrequency,incrementWordFrequencyBulk } from "./db/insertword.repositries.js";
-import { instance } from "./index.js";
+import { incrementWordFrequencyBulk } from "./db/insertword.repositries.js";
 
 const batchMap = new Map<string, number>();
 const Max_Batch = 200;
@@ -37,8 +36,7 @@ async function main() {
       console.log(" [x] Received %s", word);
       console.log(" [x] Received %s", word);
 
-      instance.recordselection(word); // inmem save
-      // this send the word to inmem to a map and acumaltes the numbers in map
+      // this sends the word to in-memory map and accumulates counts for DB bulk update
       batchMap.set(word, (batchMap.get(word) ?? 0) + 1);
       pendingMessages.push(msg);
       Event_Count++;

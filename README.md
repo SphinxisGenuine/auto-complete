@@ -47,7 +47,14 @@ so before i  was batching updates the each word was taking 1 db call which was e
 2 200 update reqest came 
 if any one of  the two condition matched i bulk update the db with one request this introduce  the race condition which i have manged so that double time updates dont occur so i have learnt about the race condition( two db calls at same time ) and some concurrancy principle and also handled back pressure so  that my queue dosnt have  more than  200 requests at any point of time  i can increase it bit larger size but i am just  thinking  it could handle as much traffic as possibble  
 
+// 
+After the assist of antigrav it wrote the test cases with k6 and i must say this fairly handles the Load upto 30 to 100 concurrent users at any point of time it give the resposne in sub milisecond which i was trying p95 is 6.05ms** which is fairly good but as the VU increased
+VU 
+500 | p95 went to 73.96ms is which is really high i want it to be in sub millisecond 
+1000 | p95 176 ms 
 
+
+so next goal is identifyinng the bottleneck of the app and reducing it as much as 
 
 //todo
 api for handling the selction and forwarding it  to the queue (done)

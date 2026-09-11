@@ -17,10 +17,14 @@ export function createApp(options: AppOptions): Express {
     instance,
     channel,
     queue = "Wordupdate",
-    wordExistFn = defaultWordExist,
+    wordExistFn,
   } = options;
 
   app.use(express.json());
+  app.use((_req, res, next) => {
+    res.setHeader("X-Worker-Id", process.env.NODE_APP_INSTANCE ?? String(process.pid));
+    next();
+  });
 
   // Health check endpoint
   app.get("/health", (_req, res) => {
@@ -38,17 +42,22 @@ export function createApp(options: AppOptions): Express {
   });
 
   // Handler for recording selection
-  const handleSelection = async (req: express.Request, res: express.Response) => {
+  const handleSelection = async (req: any, res: any) => {
     const wordq = req.body?.word;
     if (!wordq || typeof wordq !== "string") {
       return res.status(400).json({ msg: "Word is required" });
     }
 
     try {
-      const isWordExist = await wordExistFn(wordq);
+      const isWordExist = wordExistFn
+        ? await wordExistFn(wordq)
+        : instance.iswordexist(wordq);
+
       if (!isWordExist) {
         return res.status(400).json({ msg: "Word dosent exist" });
       }
+
+      instance.recordselection(wordq);
 
       if (channel) {
         const payload = { word: wordq };

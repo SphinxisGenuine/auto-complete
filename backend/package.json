@@ -9,6 +9,7 @@
     "test:watch": "vitest",
     "build": "tsc -b",
     "dev": "npx tsc -b && node ./dist/index.js",
+    "start:pm2": "npx tsc -b && pm2 start ecosystem.config.cjs",
     "test:load": "npm run build && k6 run dist/load-tests/autocomplete-vu-test.js",
     "test:selection": "npm run build && k6 run dist/load-tests/selection-vu-test.js",
     "test:capacity": "npm run build && k6 run dist/load-tests/mixed-capacity-test.js",
