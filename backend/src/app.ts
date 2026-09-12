@@ -3,6 +3,7 @@ import type { Express } from "express";
 import { AutocCompleteservice } from "./Autocompleteengine.service.js";
 import { WordExist as defaultWordExist } from "./db/insertword.repositries.js";
 import type { Channel } from "amqplib";
+import cors from "cors"
 
 export interface AppOptions {
   instance: AutocCompleteservice;
@@ -21,6 +22,7 @@ export function createApp(options: AppOptions): Express {
   } = options;
 
   app.use(express.json());
+  app.use(cors())
   app.use((_req, res, next) => {
     res.setHeader("X-Worker-Id", process.env.NODE_APP_INSTANCE ?? String(process.pid));
     next();

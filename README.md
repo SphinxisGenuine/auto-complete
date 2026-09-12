@@ -60,6 +60,8 @@ so next goal is identifyinng the bottleneck of the app and reducing it as much a
 1 in selction api i am checking in db wheather the word exst or not but the better way is async update does in the db and in meme both so i can check in db which will drastically imporve the selection api
 2 i was testing it in sigle core i thing to try it  in the stadard vm 4 core cpu so it will be reaching <10ms
 
+worte a basic frontend whic show the respose time 
+
 
 //todo
 api for handling the selction and forwarding it  to the queue (done)
