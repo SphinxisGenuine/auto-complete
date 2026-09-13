@@ -63,6 +63,13 @@ so next goal is identifyinng the bottleneck of the app and reducing it as much a
 worte a basic frontend whic show the respose time 
 
 
+ok so i have wrote the dockerfile for both the fe and be and also  in the root folder i wrote the compose file so  that my postgress and rabbit mq so that whole backend can run up in one command so after serching around i found out how could i deploy this whole app
+1 i buy one vm and ssh into it and deployy it as it is everything inside it and which is good for the application as i am assuming there wont be that much traffic but if traffic will be threr the best approach is next 
+2 i deploy the fe in cdn //vercel and backend in a vm for itself only and i deploy every other thing in the mandgerd service but most probably the rabbit would have been deployed in the k8s
+
+
+
+
 //todo
 api for handling the selction and forwarding it  to the queue (done)
 Reading about How othere people have solved this and where i can make improvements
