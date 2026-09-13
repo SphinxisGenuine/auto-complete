@@ -19,7 +19,7 @@ async function importDictionary() {
             `)
         );
 
-        const fileStream = fs.createReadStream("./src/wiki-100k.csv");
+        const fileStream = fs.createReadStream("./data/wiki-100k.csv");
 
         fileStream.pipe(stream);
 

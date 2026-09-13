@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+      POSTGRES_DB: appdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+        interval: 5s
+        timeout: 5s
+        retries: 5
+    networks:
+      - app-net
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [app-net]
+  db-migrate:
+    build: ./backend
+    command: node dist/db/migrate.js
+    environment:
+      DATABASE_URL: postgres://appuser:apppass@postgres:5432/appdb
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [app-net]
+  dict-importer:
+    build: ./backend
+    command: node dist/scripts/impportDictionary.js
+    environment:
+      DATABASE_URL: postgres://appuser:apppass@postgres:5432/appdb
+    depends_on:
+      postgres:
+        condition: service_healthy
+      db-migrate:
+        condition: service_completed_successfully
+    networks: [app-net]
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgres://appuser:apppass@postgres:5432/appdb
+      RABBITMQ_URL: amqp://rabbitmq:5672
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      dict-importer:
+        condition: service_completed_successfully
+    networks: [app-net]
+
+  frontend:
+    build: ./fe
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks: [app-net]
+
+volumes:
+  pgdata:
+
+    
+
+networks:
+  app-net:
+
+
